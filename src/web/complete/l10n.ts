@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 // @ts-ignore
 import l10nPaintData from "./l10nPaintData.js";
 
-const originL10n = { ...l10nPaintData };
+let originL10n: any = {};
 
 const languageWhiteList = ["ko", "en", "ja", "zh"];
 
@@ -92,32 +92,41 @@ function removeQuotes(str: string) {
 interface TranslatedValues {
   language: string;
   value: string;
-} 
-function getTranlations(languageWhiteList: string[], fullId: string): TranslatedValues[] {
-  return languageWhiteList.map((language) => {
-    return {
-      language,
-      value: originL10n?.[language]?.[fullId],
-    };
-  }).filter(({language, value}) => value !== undefined);
+}
+function getTranlations(
+  languageWhiteList: string[],
+  fullId: string
+): TranslatedValues[] {
+  return languageWhiteList
+    .map((language) => {
+      return {
+        language,
+        value: originL10n?.[language]?.[fullId],
+      };
+    })
+    .filter(({ language, value }) => value !== undefined);
 }
 
-const LINEBREAK_INTER_LANGUAGE = 
-`
+const LINEBREAK_INTER_LANGUAGE = `
 
 `;
 function createTranslateMarkdownString(translatedValues: TranslatedValues[]) {
-  return translatedValues.map((value) => {
-    return `**${value.language}**: ${value.value}`;
-  }).join(LINEBREAK_INTER_LANGUAGE);
+  return translatedValues
+    .map((value) => {
+      return `**${value.language}**: ${value.value}`;
+    })
+    .join(LINEBREAK_INTER_LANGUAGE);
 }
 
 export function getL10nCompleteProvider(
   document: vscode.TextDocument,
   position: vscode.Position,
   token: vscode.CancellationToken,
-  context: vscode.CompletionContext
+  context: vscode.CompletionContext,
+  l10n: any
 ): vscode.ProviderResult<any> {
+  console.log(123, l10n.ko);
+  originL10n = l10n;
   const l10nIdObject = getL10nIdObject();
 
   const line = document.lineAt(position);
@@ -161,14 +170,20 @@ export function getL10nCompleteProvider(
     const item = new vscode.CompletionItem(id, vscode.CompletionItemKind.Text);
     item.detail = "l10n";
     item.kind = vscode.CompletionItemKind.Value;
-    
+
     // TODO: currentText + id으로 한 경우에는 다음 상황에서 번역 결과가 제공되지 않음
     // ex) gui.comingSoon.me 까지 입력 후 컨트롤 space를 누르면 번역 결과가 제공되지 않음
-    const foundTranslations = getTranlations(languageWhiteList, currentText + id);
+    const foundTranslations = getTranlations(
+      languageWhiteList,
+      currentText + id
+    );
 
     if (foundTranslations.length > 0) {
-      const translateMarkdownString = createTranslateMarkdownString(foundTranslations);
-      const documentationString = `### ${currentText + id}${LINEBREAK_INTER_LANGUAGE}${translateMarkdownString}`;
+      const translateMarkdownString =
+        createTranslateMarkdownString(foundTranslations);
+      const documentationString = `### ${
+        currentText + id
+      }${LINEBREAK_INTER_LANGUAGE}${translateMarkdownString}`;
 
       item.documentation = new vscode.MarkdownString(documentationString);
     }
