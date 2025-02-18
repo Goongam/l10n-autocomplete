@@ -17,6 +17,27 @@
         "command": "l10n-autocomplete.helloWorld",
         "title": "Hello World"
       }
+    ],
+    "configuration": [
+      {
+        "title": "l10n-autocomplete settings",
+        "properties": {
+          "l10n-autocomplete.l10nPath": {
+            "type": "string",
+            "default": "C:/workspace/scratch-l10n",
+            "description": "Path to the l10n folder"
+          },
+          "l10n-autocomplete.previewLanguageWhiteList": {
+            "type": "array",
+            "default": [
+              "en",
+              "ko",
+              "ja"
+            ],
+            "description": "List of languages to show in the preview"
+          }
+        }
+      }
     ]
   },
   "scripts": {

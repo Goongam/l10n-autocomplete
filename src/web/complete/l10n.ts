@@ -1,10 +1,18 @@
 import * as vscode from "vscode";
-// @ts-ignore
-import l10nPaintData from "./l10nPaintData.js";
+
+const previewLanguageWhiteList: string[] = vscode.workspace
+  .getConfiguration("l10n-autocomplete")
+  .get("previewLanguageWhiteList") as string[];
+
+if (!previewLanguageWhiteList || previewLanguageWhiteList.length === 0) {
+  vscode.window.showErrorMessage(
+    "l10n-autocomplete: previewLanguageWhiteList 설정이 필요합니다. ex) ['ko', 'en', 'ja']"
+  );
+}
 
 let originL10n: any = {};
 
-const languageWhiteList = ["ko", "en", "ja", "zh"];
+const languageWhiteList = previewLanguageWhiteList;
 
 type L10nId = string;
 type Language = string;
@@ -125,7 +133,6 @@ export function getL10nCompleteProvider(
   context: vscode.CompletionContext,
   l10n: any
 ): vscode.ProviderResult<any> {
-  console.log(123, l10n.ko);
   originL10n = l10n;
   const l10nIdObject = getL10nIdObject();
 

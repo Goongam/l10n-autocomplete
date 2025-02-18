@@ -3,7 +3,17 @@
 import * as vscode from "vscode";
 import { getL10nCompleteProvider } from "./complete/l10n";
 
-const L10N_PATH = "C:/workspace/scratch-l10n";
+const l10npath = vscode.workspace
+  .getConfiguration("l10n-autocomplete")
+  .get("l10nPath");
+
+if (!l10npath) {
+  vscode.window.showErrorMessage(
+    "l10n-autocomplete: l10nPath 설정이 필요합니다."
+  );
+}
+
+const L10N_PATH = l10npath;
 const LOCALE_PATH = "locales";
 const L10N_FILES = [
   "blocks-msgs",
