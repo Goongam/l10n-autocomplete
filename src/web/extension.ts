@@ -44,7 +44,7 @@ async function loadJsModule(path: string) {
     new Function("module", transformedCode)(sandbox.module);
 
     const moduleExports = sandbox.module.exports;
-    console.log(moduleExports);
+    // console.log(moduleExports);
     return moduleExports;
   } catch (error) {
     console.error("파일을 가져올 수 없음:", error);
@@ -78,6 +78,7 @@ export async function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(disposable);
 
   const l10nFiles: any = L10N_FILES.map(async (fileName) => {
+    // console.log("load", L10N_PATH, LOCALE_PATH, fileName);
     const l10nData = await loadJsModule(
       `${L10N_PATH}/${LOCALE_PATH}/${fileName}.js`
     );
@@ -106,7 +107,8 @@ export async function activate(context: vscode.ExtensionContext) {
     return l10n;
   });
 
-  console.log("load", l10n);
+  // console.log("load", L10N_PATH, l10n);
+  console.log("load!!", l10n.ko);
 
   //자동완성기능
   // Plain text 파일(또는 원하는 언어)에 대해 CompletionItemProvider 등록
