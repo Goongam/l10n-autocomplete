@@ -19,13 +19,13 @@ export async function activate(context: vscode.ExtensionContext) {
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
   const disposable = vscode.commands.registerCommand(
-    "l10n-autocomplete.helloWorld",
+    "l10n-autocomplete.reloadl10n",
     async () => {
       // The code you place here will be executed every time your command is executed
       l10n = await reloadL10n();
       // Display a message box to the user
       vscode.window.showInformationMessage(
-        "Hello World from l10n-autocomplete in a web extension host!"
+        "l10n-autocomplete: l10n 파일을 다시 로드했습니다."
       );
     }
   );

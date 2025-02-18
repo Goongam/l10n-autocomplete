@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "l10n-autocomplete.helloWorld",
-        "title": "Hello World"
+        "command": "l10n-autocomplete.reloadl10n",
+        "title": "reloadl10n"
       }
     ],
     "configuration": [
