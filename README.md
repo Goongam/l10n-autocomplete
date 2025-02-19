@@ -1,5 +1,8 @@
 # l10n-autocomplete README
 
+![image](https://github.com/user-attachments/assets/8c0c873d-2c37-437b-8979-1aa208b8743e)
+
+
 # 익스텐션 설치
 1. l10n-autocomplete-X.X.X.vsix 다운로드
 2. vscode extensions 탭에서 상단 ... 버튼 클릭
