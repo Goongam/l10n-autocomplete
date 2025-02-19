@@ -34,20 +34,24 @@ export async function activate(context: vscode.ExtensionContext) {
 
   console.log("load!!", l10n.ko);
 
-  const provider = vscode.languages.registerCompletionItemProvider(
-    { scheme: "file", language: "javascript" },
-    {
-      provideCompletionItems: (
-        document: vscode.TextDocument,
-        position: vscode.Position,
-        token: vscode.CancellationToken,
-        context: vscode.CompletionContext
-      ) => getL10nCompleteProvider(document, position, token, context, l10n),
-    },
-    "."
+  const languages = ["javascript", "typescript", "html"]; // 적용할 언어 목록
+
+  const providers = languages.map((lang) =>
+    vscode.languages.registerCompletionItemProvider(
+      { scheme: "file", language: lang },
+      {
+        provideCompletionItems: (
+          document: vscode.TextDocument,
+          position: vscode.Position,
+          token: vscode.CancellationToken,
+          context: vscode.CompletionContext
+        ) => getL10nCompleteProvider(document, position, token, context, l10n),
+      },
+      "."
+    )
   );
 
-  context.subscriptions.push(provider);
+  context.subscriptions.push(...providers);
 }
 
 // This method is called when your extension is deactivated
