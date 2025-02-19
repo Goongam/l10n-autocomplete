@@ -4,7 +4,7 @@
 
 
 # 익스텐션 설치
-1. l10n-autocomplete-X.X.X.vsix 다운로드
+1. versions/l10n-autocomplete-X.X.X.vsix 다운로드
 2. vscode extensions 탭에서 상단 ... 버튼 클릭
 3. install from VSIX... 클릭
 4. 다운로드 받은 l10n-autocomplete-X.X.X.vsix 선택
