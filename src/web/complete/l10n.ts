@@ -88,10 +88,10 @@ function getL10nIdObject(): L10nIdObject {
 }
 
 function removeQuotes(str: string) {
-  if (str.startsWith('"')) {
+  if (str.startsWith('"') || str.startsWith("'")) {
     str = str.slice(1);
   }
-  if (str.endsWith('"')) {
+  if (str.endsWith('"') || str.endsWith("'")) {
     str = str.slice(0, -1);
   }
   return str;
