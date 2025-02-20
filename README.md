@@ -1,5 +1,9 @@
 # l10n-autocomplete README
 
+스크래치 l10n 번역 자동완성 및 번역 미리보기를 제공합니다.
+
+string 내부에서 .으로 트리거 됩니다. ex) "gui."
+
 ![image](https://github.com/user-attachments/assets/8c0c873d-2c37-437b-8979-1aa208b8743e)
 
 
